@@ -1,2 +1,10 @@
 # event-consumer
-sample event consumer deployment 
+Sample event consumer deployment
+
+###Set version
+``export version=v4.9``
+
+###Deploy
+``make deploy``
+###Undeploy
+```make undeploy```
