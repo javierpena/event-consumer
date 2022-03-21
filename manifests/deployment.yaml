@@ -40,7 +40,7 @@ spec:
             - "--metrics-addr=127.0.0.1:9091"
             - "--store-path=/store"
             - "--transport-host=amqp://amq-router.amq-router.svc.cluster.local"
-            - "--api-port=8089"
+            - "--api-port=9089"
           env:
             - name: NODE_NAME
               valueFrom:
