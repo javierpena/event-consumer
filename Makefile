@@ -3,7 +3,7 @@ VERSION ?=v4.9
 # Default image tag
 
 SIDECAR_IMG ?= quay.io/redhat-cne/cloud-event-proxy:$(VERSION)
-CONSUMER_IMG ?= quay.io/redhat-cne/cloud-native-event-consumer:$(VERSION)
+CONSUMER_IMG ?= quay.io/redhat-cne/cloud-event-consumer:$(VERSION)
 
 kustomize:
 ifeq (, $(shell which kustomize))
