@@ -12,7 +12,7 @@ replicas:
 images:
 - name: cloud-event-consumer
   newName: quay.io/redhat-cne/cloud-event-consumer
-  newTag: v4.9
+  newTag: v4.10
 - name: cloud-event-sidecar
   newName: quay.io/redhat-cne/cloud-event-proxy
-  newTag: v4.9
+  newTag: v4.10
