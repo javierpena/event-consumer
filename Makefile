@@ -26,4 +26,4 @@ deploy:kustomize
 
 undeploy:kustomize
 	cd ./manifests && $(KUSTOMIZE) edit set image cloud-event-sidecar=${SIDECAR_IMG} && $(KUSTOMIZE)  && $(KUSTOMIZE) edit set image  cloud-event-consumer=${CONSUMER_IMG}
-	$(KUSTOMIZE) build ./manifests | kubectl apply -f -
+	$(KUSTOMIZE) build ./manifests | kubectl delete -f -
