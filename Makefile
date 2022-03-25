@@ -1,5 +1,5 @@
 .PHONY: build
-VERSION ?=v4.9
+VERSION ?=release-4.10
 # Default image tag
 
 SIDECAR_IMG ?= quay.io/redhat-cne/cloud-event-proxy:$(VERSION)
