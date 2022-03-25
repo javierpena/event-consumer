@@ -11,8 +11,8 @@ replicas:
   name: cloud-event-consumer-deployment
 images:
 - name: cloud-event-consumer
-  newName: quay.io/aneeshkp/cloud-event-consumer
-  newTag: v4.17
+  newName: quay.io/redhat-cne/cloud-event-consumer
+  newTag: release-4.10
 - name: cloud-event-sidecar
-  newName: quay.io/aneeshkp/cloud-event-proxy
-  newTag: v4.17
+  newName: quay.io/redhat-cne/cloud-event-proxy
+  newTag: release-4.10
