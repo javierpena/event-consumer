@@ -4,19 +4,30 @@ VERSION ?=release-4.10
 
 SIDECAR_IMG ?= quay.io/redhat-cne/cloud-event-proxy:$(VERSION)
 CONSUMER_IMG ?= quay.io/redhat-cne/cloud-event-consumer:$(VERSION)
-UNAME_S := $(shell uname -s)
-KUSTOMIZE = $(shell pwd)/bin/kustomize
 
-ifeq ($(UNAME_S),Linux)
-	KUSTOMIZE_URL = "https://github.com/kubernetes-sigs/kustomize/releases/download/v1.0.3/kustomize_1.0.3_linux_amd64"	
+# Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
+ifeq (,$(shell go env GOBIN))
+GOBIN=$(shell go env GOPATH)/bin
 else
-	KUSTOMIZE_URL = "https://github.com/kubernetes-sigs/kustomize/releases/download/v1.0.3/kustomize_1.0.3_darwin_amd64"
+GOBIN=$(shell go env GOBIN)
 endif
 
+# Download kustomize locally if necessary, preferring the $(pwd)/bin path over global if both exist.
+.PHONY: kustomize
 kustomize:
-@echo "Downloading ${K8S_BIN_DIR}/kustomize for k8s deployments."
-	@curl -sSL $(KUSTOMIZE_URL) > ${KUSTOMIZE_BIN}
-	@chmod +x ${KUSTOMIZE_BIN}
+ifeq (, $(shell which kustomize))
+	@{ \
+	set -e ;\
+	KUSTOMIZE_GEN_TMP_DIR=$$(mktemp -d) ;\
+	cd $$KUSTOMIZE_GEN_TMP_DIR ;\
+	go mod init tmp ;\
+	go get sigs.k8s.io/kustomize/kustomize/v3@v3.5.4 ;\
+	rm -rf $$KUSTOMIZE_GEN_TMP_DIR ;\
+	}
+KUSTOMIZE=$(GOBIN)/kustomize
+else
+KUSTOMIZE=$(shell which kustomize)
+endif
 
 deploy:kustomize
 	cd ./manifests && $(KUSTOMIZE) edit set image cloud-event-sidecar=${SIDECAR_IMG} && $(KUSTOMIZE) && $(KUSTOMIZE) edit set image cloud-event-consumer=${CONSUMER_IMG}
