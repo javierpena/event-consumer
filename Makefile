@@ -1,9 +1,9 @@
 .PHONY: build
-VERSION ?=release-4.10
+VERSION ?=4.10
 # Default image tag
 
 SIDECAR_IMG ?= quay.io/redhat-cne/cloud-event-proxy:$(VERSION)
-CONSUMER_IMG ?= quay.io/redhat-cne/cloud-event-consumer:$(VERSION)
+CONSUMER_IMG ?= quay.io/redhat-cne/cloud-event-consumer:release-$(VERSION)
 
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
 ifeq (,$(shell go env GOBIN))
