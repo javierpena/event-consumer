@@ -3,7 +3,7 @@ Sample event consumer deployment
 
 ###Set version
 
-``export VERSION=release-4.9``
+``export VERSION=4.9``
 
 ###Deploy
 
