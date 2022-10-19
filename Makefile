@@ -2,7 +2,7 @@
 VERSION ?=4.10
 # Default image tag
 
-SIDECAR_IMG ?= quay.io/redhat-cne/cloud-event-proxy:$(VERSION)
+SIDECAR_IMG ?= quay.io/redhat-cne/cloud-event-proxy:release-$(VERSION)
 CONSUMER_IMG ?= quay.io/redhat-cne/cloud-event-consumer:release-$(VERSION)
 
 # Get the currently used golang install path (in GOPATH/bin, unless GOBIN is set)
@@ -30,9 +30,9 @@ KUSTOMIZE=$(shell which kustomize)
 endif
 
 deploy:kustomize
-	cd ./manifests && $(KUSTOMIZE) edit set image cloud-event-sidecar=${SIDECAR_IMG} && $(KUSTOMIZE) && $(KUSTOMIZE) edit set image cloud-event-consumer=${CONSUMER_IMG}
+	cd ./manifests && $(KUSTOMIZE) edit set image cloud-event-sidecar=${SIDECAR_IMG} && $(KUSTOMIZE) edit set image cloud-event-consumer=${CONSUMER_IMG}
 	$(KUSTOMIZE) build ./manifests | kubectl apply -f -
 
 undeploy:kustomize
-	cd ./manifests && $(KUSTOMIZE) edit set image cloud-event-sidecar=${SIDECAR_IMG} && $(KUSTOMIZE)  && $(KUSTOMIZE) edit set image cloud-event-consumer=${CONSUMER_IMG}
+	cd ./manifests && $(KUSTOMIZE) edit set image cloud-event-sidecar=${SIDECAR_IMG} && $(KUSTOMIZE) edit set image cloud-event-consumer=${CONSUMER_IMG}
 	$(KUSTOMIZE) build ./manifests | kubectl delete -f -
