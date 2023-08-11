@@ -17,6 +17,26 @@ spec:
     app: consumer
   type: ClusterIP
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: "true"
+    service.alpha.openshift.io/serving-cert-secret-name: sidecar-consumer-secret
+  name: consumer-events-subscription-service
+  namespace: cloud-events
+  labels:
+    app: consumer-service
+spec:
+  ports:
+    - name: sub-port
+      port: 9043
+  selector:
+    app: consumer
+  clusterIP: None
+  sessionAffinity: None
+  type: ClusterIP
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
